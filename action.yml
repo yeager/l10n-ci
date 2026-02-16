@@ -1,0 +1,53 @@
+name: 'L10n CI/CD'
+description: 'GitHub Action for localization CI/CD workflows'
+author: 'Daniel Nylander'
+
+branding:
+  icon: 'globe'
+  color: 'blue'
+
+inputs:
+  transifex-token:
+    description: 'Transifex API token'
+    required: true
+  source-file:
+    description: 'Path to source translation file (.pot)'
+    required: true
+    default: 'po/*.pot'
+  minimum-percentage:
+    description: 'Minimum translation percentage to pull'
+    required: false
+    default: '10'
+  commit-message:
+    description: 'Commit message for translation updates'
+    required: false
+    default: 'i18n: sync translations from Transifex'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Transifex CLI
+      shell: bash
+      run: |
+        curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
+        sudo mv tx /usr/local/bin/
+    
+    - name: Sync translations
+      shell: bash
+      env:
+        TX_TOKEN: ${{ inputs.transifex-token }}
+      run: |
+        # Push source files
+        tx push -s --skip
+        
+        # Pull translations
+        tx pull -a --force --minimum-perc ${{ inputs.minimum-percentage }}
+        
+        # Commit changes if any
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add po/*.po
+        if ! git diff --cached --quiet; then
+          git commit -m "${{ inputs.commit-message }}"
+          git push
+        fi

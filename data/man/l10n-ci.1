@@ -1,0 +1,36 @@
+.TH L10N-CI 1 "February 2026" "l10n-ci 0.1.0"
+.SH NAME
+l10n-ci \- GitHub Action for localization CI/CD workflows
+.SH SYNOPSIS
+.B l10n-ci
+[\fIOPTIONS\fR]
+.SH DESCRIPTION
+.B l10n-ci
+is a GitHub Action and command-line tool for automating localization CI/CD workflows with Transifex.
+It synchronizes translation files between your repository and Transifex, automatically pulling
+updated translations and pushing source file changes.
+.SH OPTIONS
+.TP
+.BR \-\-token " " \fITOKEN\fR
+Transifex API token (required)
+.TP
+.BR \-\-source\-file " " \fIFILE\fR
+Source file pattern (default: po/*.pot)
+.TP
+.BR \-\-min\-percentage " " \fIN\fR
+Minimum translation percentage to pull (default: 10)
+.TP
+.BR \-\-commit\-message " " \fIMESSAGE\fR
+Commit message for translation updates (default: "i18n: sync translations from Transifex")
+.SH EXAMPLES
+.TP
+Sync translations with default settings:
+.B l10n-ci --token YOUR_TX_TOKEN
+.TP
+Set custom minimum percentage:
+.B l10n-ci --token YOUR_TX_TOKEN --min-percentage 50
+.SH AUTHOR
+Daniel Nylander <daniel@danielnylander.se>
+.SH SEE ALSO
+.BR git (1),
+.BR tx (1)

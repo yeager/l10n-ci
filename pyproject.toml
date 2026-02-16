@@ -1,0 +1,7 @@
+[project]
+name = "l10n-ci"
+version = "0.1.0"
+description = "GitHub Action for localization CI/CD"
+authors = [{name = "Daniel Nylander", email = "daniel@danielnylander.se"}]
+license = {text = "GPL-3.0-or-later"}
+requires-python = ">=3.10"
