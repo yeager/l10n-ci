@@ -1,77 +1,55 @@
-# L10n CI/CD
+# l10n ci [![Version](https://img.shields.io/badge/version-0.1.0-blue.svg)](https://github.com/yeager/l10n-ci)
 
-[![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Transifex](https://img.shields.io/badge/Transifex-translate-green.svg)](https://www.transifex.com/danielnylander/l10n-ci/)
 
-GitHub Action for localization CI/CD workflows - automates translation synchronization with Transifex.
+
+## Description
+
+l10n ci is a GTK4/Adwaita application 
+
+[Application description will be added based on individual repo functionality]
 
 ## Features
 
-- Automated source file pushing to Transifex
-- Translation pulling with configurable minimum percentage
-- Git commit and push of updated translations
-- Flexible configuration via inputs
-- Command-line tool for local usage
+- Modern GTK4/Adwaita interface
+- [Feature list to be customized per repo]
 
-## Usage as GitHub Action
 
-Add this to your workflow file (e.g., `.github/workflows/l10n.yml`):
 
-```yaml
-name: Localization CI/CD
-on:
-  push:
-    branches: [main]
-    paths: ['po/*.pot']
-  workflow_dispatch:
+## Installation
 
-jobs:
-  sync-translations:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: yeager/l10n-ci@v1
-        with:
-          transifex-token: ${{ secrets.TX_TOKEN }}
-          source-file: 'po/*.pot'
-          minimum-percentage: 10
-```
-
-## Inputs
-
-| Input | Description | Required | Default |
-|-------|-------------|----------|---------|
-| `transifex-token` | Transifex API token | Yes | - |
-| `source-file` | Path to source translation file | No | `po/*.pot` |
-| `minimum-percentage` | Minimum translation percentage to pull | No | `10` |
-| `commit-message` | Commit message for translation updates | No | `i18n: sync translations from Transifex` |
-
-## Usage as CLI Tool
-
-Install and run locally:
+### APT Repository (Debian/Ubuntu)
 
 ```bash
-pip install l10n-ci
-l10n-ci --token YOUR_TX_TOKEN --min-percentage 50
+echo "deb https://yeager.github.io/debian-repo stable main" | sudo tee /etc/apt/sources.list.d/yeager-l10n.list
+sudo apt update
+sudo apt install l10n-ci
 ```
 
-## Setup
+### DNF Repository (Fedora/RHEL)
 
-1. Create a Transifex API token
-2. Add it as a repository secret named `TX_TOKEN`
-3. Configure your `.tx/config` file
-4. Add the workflow to your repository
+```bash
+sudo dnf config-manager --add-repo https://yeager.github.io/rpm-repo/yeager-l10n.repo
+sudo dnf install l10n-ci
+```
+
+### Building from Source
+
+```bash
+git clone https://github.com/yeager/l10n-ci.git
+cd l10n-ci
+pip install -e .
+```
 
 ## Translation
 
-Help translate this action on [Transifex](https://www.transifex.com/danielnylander/l10n-ci/).
+This application is managed on Transifex: https://app.transifex.com/danielnylander/l10n-ci/
 
-## Author
-
-**Daniel Nylander**
-- Email: daniel@danielnylander.se
-- GitHub: [@yeager](https://github.com/yeager)
+Available in 11 languages: Swedish, German, French, Spanish, Italian, Portuguese, Dutch, Polish, Czech, Russian, and Chinese (Simplified).
 
 ## License
 
-This project is licensed under the GPL-3.0-or-later License - see the [LICENSE](LICENSE) file for details.
+GPL-3.0-or-later
+
+## Author
+
+Daniel Nylander (daniel@danielnylander.se)
